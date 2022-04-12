@@ -9,13 +9,16 @@ use App\Http\Requests\UpdateProblemRequest;
 class ProblemController extends Controller
 {
     /**
+     *
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $problems = Problem::orderBy('id', 'desc')->take(10)
+             ->get();
+        return view('admin.problem.index' , compact('problems'));
     }
 
     /**
@@ -47,7 +50,7 @@ class ProblemController extends Controller
      */
     public function show(Problem $problem)
     {
-        //
+        dd($problem);
     }
 
     /**

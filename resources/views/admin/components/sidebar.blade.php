@@ -17,8 +17,8 @@ class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 fl
     <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
 
     <!-- link -->
-    <a href=""
-        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+    <a href=" {{  route('dashboard') }}"
+        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500 {{ request()->routeIs('dashboard') ? 'text-teal-600'  : '' }}">
         <i class="fas fa-user text-xs mr-2"></i>
         User dashboard
     </a>
@@ -51,8 +51,8 @@ class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 fl
     <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Problems</p>
 
     <!-- link -->
-    <a href="#"
-        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+    <a href="{{ route('problems.index') }}"
+        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500 {{ request()->routeIs('problems.*') ? 'text-teal-600' : '' }}">
         <i class="fad fa-envelope-open-text text-xs mr-2"></i>
         View all Problems
     </a>
@@ -61,8 +61,8 @@ class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 fl
     <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Solutions</p>
 
     <!-- link -->
-    <a href="#"
-        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+    <a href="{{ route('solutions.index') }}"
+        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500 {{ request()->routeIs('solutions.*') ? 'text-teal-600' : '' }}">
         <i class="fad fa-envelope-open-text text-xs mr-2"></i>
         Show Solutions
     </a>
