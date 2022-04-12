@@ -109,12 +109,6 @@
                         <hr>
                         <ul class="flex gap-2 flex-wrap mt-4">
                             <li><a href="" class="btn-shadow ">Category 1</a></li>
-                            <li><a href="" class="btn-shadow">Category 2</a></li>
-                            <li><a href="" class="btn-shadow">Category 3</a></li>
-                            <li><a href="" class="btn-shadow">Category 4</a></li>
-                            <li><a href="" class="btn-shadow">Category 5</a></li>
-                            <li><a href="" class="btn-shadow">Category 6</a></li>
-                            <li><a href="" class="btn-shadow">Category 7</a></li>
                         </ul>
                     </div>
                 </div>
