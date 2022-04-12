@@ -20,6 +20,21 @@ class Problem extends Model
         'updated_at',
     ];
 
-    public function getRouteKeyName(){return 'slug'; }
+    /**
+     *
+     * return slug
+     *
+     * @var array<int, string>
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    //category relationship
+    public function category()
+    {
+        return $this->belongsTo(category::class, 'category_id', 'id');
+    }
 
 }
