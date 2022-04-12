@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
     /**
-     * 
+     *
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -19,4 +19,15 @@ class Category extends Model
         'created_at',
         'updated_at',
     ];
+
+
+    /**
+     * Get the user that owns the Category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function problem()
+    {
+        return $this->belongsTo(Problem::class, 'category_id', 'id');
+    }
 }

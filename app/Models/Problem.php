@@ -20,5 +20,9 @@ class Problem extends Model
         'updated_at',
     ];
 
-    
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
 }

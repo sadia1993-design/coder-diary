@@ -16,8 +16,9 @@ class ProblemController extends Controller
      */
     public function index()
     {
-        $problems = Problem::orderBy('id', 'desc')->take(10)
-             ->get();
+        $problems = Problem::where('visibility', 'public')
+             ->orderBy('id', 'desc')->take(10)
+             ->paginate(7);
         return view('admin.problem.index' , compact('problems'));
     }
 
@@ -28,7 +29,7 @@ class ProblemController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -50,7 +51,7 @@ class ProblemController extends Controller
      */
     public function show(Problem $problem)
     {
-        dd($problem);
+        return view('admin.problem.show', compact('problem'));
     }
 
     /**

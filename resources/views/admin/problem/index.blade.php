@@ -12,7 +12,6 @@
                 <tr>
                   <th class="px-4 py-2 border-r"></th>
                   <th class="px-4 py-2 border-r">Title</th>
-                  <th class="px-4 py-2 border-r">Visibility</th>
                   <th class="px-4 py-2">Category</th>
                   <th class="px-4 py-2">Tag </th>
                   <th class="px-4 py-2">Action</th>
@@ -21,10 +20,10 @@
               <tbody class="text-gray-600">
 
                 @forelse ($problems as  $problem)
+
                   <tr>
                     <td class="border border-l-0 border-b-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>
-                    <td class="border border-l-0 border-b-0 px-4 py-2"><a href="{{ route('problems.show', $problem->slug) }}" class="hover:text-teal-600">{{ \Illuminate\Support\Str::limit($problem->title, 40, '...') }}</a></td>
-                    <td class="border border-l-0 border-b-0 px-4 py-2">{{ $problem->visibility }}</td>
+                    <td class="border border-l-0 border-b-0 px-4 py-2"><a href="{{ route('problems.show', $problem->id) }}" class="hover:text-teal-600">{{ \Illuminate\Support\Str::limit($problem->title, 40, '...') }}</a></td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2"> {{ $problem->category_id }} </td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2"></td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2 flex text-xs">
@@ -35,14 +34,18 @@
                   </tr>
 
                   @empty
+
                     <tr>
                         <td class="border border-l-0 border-b-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>
                         <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2 text-red-600" colspan="5">No Problem Found</td>
                     </tr>
+
                 @endforelse
 
               </tbody>
             </table>
+
+            {{ $problems->links() }}
           </div>
     </div>
 
