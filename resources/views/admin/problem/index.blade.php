@@ -23,7 +23,7 @@
 
                   <tr>
                     <td class="border border-l-0 border-b-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>
-                    <td class="border border-l-0 border-b-0 px-4 py-2"><a href="{{ route('problems.show', $problem->id) }}" class="hover:text-teal-600">{{ \Illuminate\Support\Str::limit($problem->title, 40, '...') }}</a></td>
+                    <td class="border border-l-0 border-b-0 px-4 py-2"><a href="{{ route('problems.show', $problem) }}" class="hover:text-teal-600">{{ \Illuminate\Support\Str::limit($problem->title, 40, '...') }}</a></td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2"> {{ $problem->category_id }} </td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2"></td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2 flex text-xs">
