@@ -16,7 +16,8 @@ class ProblemController extends Controller
      */
     public function index()
     {
-        $problems = Problem::where('visibility', 'public')
+        $problems = Problem::with('category')
+             ->where('visibility', 'public')
              ->orderBy('id', 'desc')->take(10)
              ->paginate(7);
         return view('admin.problem.index' , compact('problems'));

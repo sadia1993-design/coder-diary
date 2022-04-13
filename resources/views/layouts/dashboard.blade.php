@@ -8,19 +8,26 @@
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/style.css') }}">
     <title>Coder Diary</title>
+
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 300px;
+        }
+
+    </style>
 </head>
 
 <body class="bg-gray-100">
 
     <!-- start navbar -->
-       @include('admin.components.navigation')
+    @include('admin.components.navigation')
     <!-- end navbar -->
 
     <div class="h-screen flex flex-row flex-wrap">
 
-          <!-- start sidebar -->
+        <!-- start sidebar -->
         @include('admin.components.sidebar')
-          <!-- end sidbar -->
+        <!-- end sidbar -->
 
         <!-- strat content -->
         @yield('content')
@@ -31,9 +38,28 @@
 
 
     <!-- script -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{-- ckeditor --}}
+    <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
     <script src="{{ asset('admin/js/scripts.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // ClassicEditor
+            //     .create(document.querySelector('.ckEditor'))
+            //     .then(editor => {
+            //         console.log(editor);
+            //     })
+            //     .catch(error => {
+            //         console.log(error);
+            //     });
+
+                CKEDITOR.replace( 'ckEditor' );
+        })
+    </script>
     <!-- end script -->
 
 </body>
+
 </html>
