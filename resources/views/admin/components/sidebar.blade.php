@@ -86,6 +86,14 @@ class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 fl
     </a>
     <!-- end link -->
 
+    <!-- link -->
+    <a href="{{ route('products.index') }}"
+        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-list-alt text-xs mr-2"></i>
+         products
+    </a>
+    <!-- end link -->
+
 </div>
 <!-- end sidebar content -->
 </div>

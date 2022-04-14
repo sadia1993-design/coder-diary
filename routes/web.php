@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProblemController;
 use App\Http\Controllers\SolutionController;
+use App\Http\Controllers\ProductController;
 
 
 
@@ -18,6 +19,7 @@ Route::prefix('/dashboard')->middleware(['auth'])->group( function(){
 
     Route::resource('problems', ProblemController::class);
     Route::resource('solutions', SolutionController::class);
+    Route::resource('products', ProductController::class);
 
 });
 

@@ -30,4 +30,11 @@ class Category extends Model
     {
         return $this->belongsTo(Problem::class, 'category_id', 'id');
     }
+
+
+    //problem relationship
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
