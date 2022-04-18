@@ -77,7 +77,7 @@
 
 @section('scripts')
     <script>
-        $("#cat_name").change(function() {
+        $("#cat_name").keyup(function() {
             let cat_value = $(this).val();
             let slug  = cat_value.replaceAll(' ', '-');
 
