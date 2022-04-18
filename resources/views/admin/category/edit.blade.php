@@ -51,7 +51,7 @@
                             <div class="flex-1 mr-4">
                                 <label for="slug" class="formLabel">Slug</label>
                                 <input type="text" readonly name="slug"
-                                    class="border bg-gray-300 focus:outline-none rounded w-full py-2 px-3"
+                                    class="border bg-gray-300 focus:outline-none rounded w-full py-2 px-3" id="cat_slug"
                                     value="{{ $category->slug }}">
                             </div>
                         </div>
@@ -77,8 +77,11 @@
 
 @section('scripts')
     <script>
-        $("input #cat_name").change(function() {
-            alert("The text has been changed.");
+        $("#cat_name").change(function() {
+            let cat_value = $(this).val();
+            let slug  = cat_value.replaceAll(' ', '-');
+
+            $('#cat_slug').val(slug);
         });
     </script>
 @endsection

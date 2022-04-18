@@ -25,6 +25,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|regex:/^[a-zA-Z\s]+$/',
+            'slug' => 'required'
         ];
     }
 }
