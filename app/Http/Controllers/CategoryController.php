@@ -40,7 +40,15 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $request->validated();
+        try {
+            Category::create($request->all());
+            return redirect()->route('category.index')->with('info', 'Category Added Successfully');
+
+        } catch (\Exception$e) {
+            return $e;
+            return redirect()->route('category.index')->with('error', 'Category add failed');
+        }
     }
 
     /**
