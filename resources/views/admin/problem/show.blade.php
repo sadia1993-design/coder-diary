@@ -2,141 +2,278 @@
 
 @section('content')
     <style>
-        .problem-desc blockquote {
-            position: relative;
+        .problem-screenshort img {
+            display: inline-block;
+            width: 230px;
         }
 
-        .problem-desc blockquote:before {
-            position: absolute;
-            content: '';
-            width: 8px;
-            height: 111px;
-            background: #6f8fab;
+        .formLabel {
+            display: block;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+
+        .formInput {
+            width: 100%;
             border-radius: 5px;
-        }
-
-        .problem-desc blockquote:after {
-            position: absolute;
-            content: '';
-            width: 8px;
-            height: 90px;
-            background: #6f8fab;
-            left: 15px;
-            top: 11px;
-            border-radius: 5px;
-        }
-
-        .icons i {
-            font-size: 20px;
-            color: ghostwhite;
-            background: teal;
+            border: 1px solid;
             padding: 10px;
-            border-radius: 4px;
         }
 
-
-        ul.answer-list li {
-            border-bottom: 2px solid #efefef;
-            padding-bottom: 13px;
-            padding-top: 14px;
-            width: 50%;
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
         }
 
-        ul.answer-list li:last-child {
-            border-bottom: 0;
+        .active,
+        .accordion:hover {
+            background-color: #ccc;
         }
 
-        ul.answer-list li:first-child {
-            padding-top: 0;
+        .accordion:after {
+            content: "\002B";
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+            font-size: 21px;
         }
 
-        .problem-desc p {
-            padding: 40px;
+        .active:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
+        select {
+            text-transform: capitalize;
         }
 
     </style>
 
 
     <div class="bg-gray-100 flex-1 p-6 md:mt-16">
-        <div class="grid grid-cols-3 gap-6  xl:grid-cols-1">
+        <!-- General Report -->
+        <div class="grid gap-6 xl:grid-cols-1">
+            <!-- Sales Overview -->
+            <div class="card mt-6">
+                <!-- header -->
+                <div class="card-header flex justify-between items-center">
+                    <h1 class="h4">Problem Details </h1>
+                    <a href="{{ route('problems.index') }}" class="btn-shadow">Back</a>
+                </div>
+                <!-- end header -->
 
-            <!-- Start problem details -->
-            <div class="card col-span-2 xl:col-span-1">
-                <div class="card-header border-transparent">
-                    <h2 class="text-teal-600 font-bold">{{ isset($problem->title) ? $problem->title : 'Problem Title' }}
-                    </h2>
-                    <div class="meta mb-5">
-                        <span>Asked By <a href="" class="underline">{{ $problem->user_id }}</a></span>,
-                        <span>Created At: {{ $problem->created_at }}</span>
+                <!-- problem info -->
+                <div class="grid grid-cols-4 gap-6 xl:grid-cols-2 p-6 pt-0">
+
+                    <!-- card -->
+                    <div class="card mt-6 xl:mt-1">
+                        <div class="card-body flex items-center">
+
+                            <div class="px-3 py-2 rounded bg-gray-200 text-black mr-3">
+                                <i class="fad fa-calendar"></i>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <h1 class="font-semibold capitalize">Published On</h1>
+                                <p class="text-xs capitalize">{{ $problem->created_at->format('d M, Y') }}</p>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="icons flex gap-2 align-content-center mb-5">
-                        <i class="fa fa-eye "></i>
-                        <div class="icon-cont ">
-                            <p>Visibility</p>
-                            <p>{{ $problem->visibility }}</p>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="card mt-6 xl:mt-1">
+                        <div class="card-body flex items-center">
+
+                            <div class="px-3 py-2 rounded bg-gray-200 text-black mr-3">
+                                <i class="fad fa-user"></i>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <h1 class="font-semibold capitalize">Publishe By</h1>
+                                <p class="text-xs capitalize">{{ Auth::user()->name }}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="card mt-6 xl:mt-1">
+                        <div class="card-body flex items-center">
+
+                            <div class="px-3 py-2 rounded bg-gray-200 text-black mr-3">
+                                <i class="fad fa-eye"></i>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <h1 class="font-semibold capitalize">Visiblity</h1>
+                                <p class="text-xs capitalize">{{ $problem->visibility }}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="card mt-6 xl:mt-1">
+                        <div class="card-body flex items-center">
+
+                            <div class="px-3 py-2 rounded bg-gray-200 text-black mr-3">
+                                <i class="fad fa-list-alt "></i>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <h1 class="font-semibold">Category</h1>
+                                <p class="text-xs">{{ $problem->category->name }}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end problem info -->
+
+                <!-- problem info -->
+                <div class="grid grid-cols-1 gap-6 xl:grid-cols-2 p-6 pt-0">
+                    <!-- card -->
+                    <div class="card mb-6 xl:mt-1">
+                        <div class="p-6 flex items-center">
+                            <div class="px-3 py-2 rounded bg-gray-200 text-black mr-3">
+                                <i class="fad fa-tags"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="font-semibold text-sm mb-1">Tags</h1>
+                                <div class="space-x-2">
+                                    <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200"
+                                        href="#">PHP</a>
+                                    <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200"
+                                        href="#">PHP</a>
+                                    <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200"
+                                        href="#">PHP</a>
+                                    <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200"
+                                        href="#">PHP</a>
+                                    <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200"
+                                        href="#">PHP</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end problem info -->
+
+                <!-- body -->
+                <div class="card-body grid grid-cols-2 gap-6 lg:grid-cols-1">
+                    <div class="p-0">
+
+                        <!-- problem name -->
+                        <div class="name pb-0">
+                            <h3 class="text-2xl font-bold">{{ $problem->name }}</h3>
+                        </div>
+                        <!-- end problem name -->
+
+
+                        <div class="mt-10 mb-10 items-center">
+                            <h4 class="text-lg font-bold mb-3">Description</h4>
+                            {!! $problem->description !!}
                         </div>
                     </div>
 
-                    <hr>
-                    <div class="problem-desc mt-5">
-                        <h3 class="font-bold mb-3">Description</h3>
-                        <blockquote>
-                            <p>{{ $problem->description }}</p>
-                        </blockquote>
+                    <div class="">
+                        <div class="problem-screenshort problem-gallery">
+                            <a href="https://picsum.photos/1024?random={{ rand(1, 1000) }}">
+                                <img src="https://picsum.photos/150?random={{ rand(1, 1000) }}" class="m-1"
+                                    alt="">
+                            </a>
+                            <a href="https://picsum.photos/1024?random={{ rand(1, 1000) }}">
+                                <img src="https://picsum.photos/150?random={{ rand(1, 1000) }}" class="m-1"
+                                    alt="">
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <!-- End problem details -->
+                <!-- end body -->
             </div>
+            <!-- end Sales Overview -->
 
-            <!-- tags -->
-            <div class="card  px-3">
-                <div class="card-header border-transparent">
-                    <div class="tags mb-5">
-                        <h2 class="text-teal-600 font-bold mb-4">Tags</h2>
-                        <hr>
-                        <ul class="flex gap-2 flex-wrap mt-4">
-                            <li><a href="" class="btn-shadow ">Tag 1</a></li>
-                            <li><a href="" class="btn-shadow">Tag 2</a></li>
-                            <li><a href="" class="btn-shadow">Tag 3</a></li>
-                            <li><a href="" class="btn-shadow">Tag 4</a></li>
-                            <li><a href="" class="btn-shadow">Tag 5</a></li>
-                            <li><a href="" class="btn-shadow">Tag 6</a></li>
-                            <li><a href="" class="btn-shadow">Tag 7</a></li>
-                        </ul>
+            <!-- Sales Overview -->
+            <div class="card mt-6">
+                <!-- header -->
+                <div class="card-header flex flex-row justify-between accordion">
+                    <h1 class="h6">Solution # </h1>
+                </div>
+                <!-- end header -->
+
+                <!-- body -->
+                <div class="grid grid-cols-2 gap-6 lg:grid-cols-1 panel p-0">
+                    <div class="p-6">
+                        <div class="mb-10 items-center">
+                            <h4 class="h4">Solution</h4>
+                            <p class="text-black">Amore sales in comparison to last month.more sales in comparison to
+                                last month.more sales in comparison to last month.more sales in comparison to last
+                                month.more sales in comparison to last month.% more sales in comparison to last month.</p>
+                        </div>
                     </div>
-                    <div class="category">
-                        <h2 class="text-teal-600 font-bold mb-4">Category</h2>
-                        <hr>
-                        <ul class="flex gap-2 flex-wrap mt-4">
-                            <li><a href="" class="btn-shadow ">Category 1</a></li>
-                        </ul>
+
+                    <div class="pt-6 ">
+                        <div class="problem-screenshort problem-gallery">
+                            <a href="https://picsum.photos/1024?random={{ rand(1, 1000) }}">
+                                <img src="https://picsum.photos/150?random={{ rand(1, 1000) }}" class="m-1"
+                                    alt="">
+                            </a>
+                            <a href="https://picsum.photos/1024?random={{ rand(1, 1000) }}">
+                                <img src="https://picsum.photos/150?random={{ rand(1, 1000) }}" class="m-1"
+                                    alt="">
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <!-- end body -->
             </div>
-            <!-- tags -->
-
+            <!-- end Sales Overview -->
 
         </div>
-
-
-
-
-        <div class="grid grid-cols-1 gap-6 xl:col-span-1 mt-5">
-            <div class="card col-span-2 xl:col-span-1">
-                <div class="card-header font-bold">View All Answers</div>
-
-
-                <div class="card-body">
-                    <ul class="answer-list  w-50">
-                        <li>Answer 1</li>
-                        <li>Answer 2</li>
-                        <li>Answer 3</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
+        <!-- End General Report -->
 
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+
+
+            $('.problem-gallery').magnificPopup({
+                delegate: 'a',
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+
+
+           
+        });
+    </script>
 @endsection

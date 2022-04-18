@@ -1,131 +1,116 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="bg-gray-100 flex-1 p-6 md:mt-16">
-        <div class="grid grid-cols-1 gap-6 xl:col-span-1">
-            <div class="card col-span-2 xl:col-span-1">
-                <div class="card-header  font-bold text-teal-600">
-                    <h1>Create a Problem</h1>
-                </div>
-
-                <div class="card-body">
-
-                    {{-- form start --}}
-                    <form action="" class="mb-0 space-y-6" method="POST">
-
-                        <div class=" grid grid-cols-2 gap-4">
-                            <div class="col-md-6 ">
-
-                                <div class="form-outline">
-                                    <label class="font-bold  " for="title">Enter Title</label>
-                                    <input type="text" id="title" name="title"
-                                        class="border mt-2 w-full border-slate-300 py-2 px-3 shadow-sm  focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        placeholder="Title" />
-                                </div>
 
 
-                            </div>
-                            <div class="col-md-6 ">
+<div class="bg-gray-100 flex-1 p-6 md:mt-16">
+    <!-- General Report -->
+    <div class="grid gap-6 xl:grid-cols-1">
+        <!-- Start Recent Sales -->
+        <div class="card col-span-2 xl:col-span-1">
+            <div class="card-header flex justify-between items-center">
+                <h2 class="h4">Create Problem</h2>
+                <a href="{{ route('problems.index') }}" class="btn-shadow">Back</a>
+            </div>
+            <div class="p-6">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    @csrf
 
-                                <div class="form-outline">
-                                    <label class="font-bold " for="slug">Slug</label>
-                                    <input type="text" readonly id="slug" name="slug"
-                                        class="border bg-gray-100 mt-2 w-full border-slate-300 py-2 px-3 shadow-sm  focus:outline-none " />
-                                </div>
+                    <div class="flex mt-6">
+                        <div class="flex-1 mr-4">
+                            <label for="name" class="formLabel">Title</label>
+                            <input type="text" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="">
 
-                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="flex mt-6">
+                        <div class="flex-1 mr-4">
+                            <label for="category_id" class="formLabel">category</label>
+                            <select name="category_id"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="category_id">
+                                <option value="none">Select Category</option>
+
+                            </select>
+
+
                         </div>
 
+                        <div class="flex-1 mr-4">
+                            <label for="visibility" class="formLabel">visibility</label>
+                            <select name="visibility" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="visibility" >
+                                <option value="">Select Visiblity</option>
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                            </select>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-outline">
-                                    <label class="font-bold " for="description">Describe Problem</label>
-                                    <textarea class="shadow-sm  focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        name="ckEditor" id="description"></textarea>
-                                </div>
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-outline">
-                                    <label class="font-bold " for="tags">Tags</label>
-                                    <input type="text" id="tag" name="tag"
-                                        class="border mt-2 w-full border-slate-300 py-2 px-3 shadow-sm  focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        placeholder="Tags" />
-                                </div>
-                            </div>
+                    <div class="flex mt-6 justify-between">
+                        <div class="flex-1">
+                            <label for="description" class="formLabel">Description</label>
+
+                            <textarea name="ckEditor" class="ckEditor" id="description"  rows="10"></textarea>
+
                         </div>
+                    </div>
 
-                        <div class=" grid grid-cols-2 gap-4">
-                            <div class="col-md-6 ">
-
-                                <div class="form-outline">
-                                    <label class="font-bold ">Created By</label>
-                                    <select
-                                        class="border mt-2 w-full border-slate-300 py-2 px-3 shadow-sm  focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-                                        <option value="1" disabled>Choose option</option>
-                                        <option value="2">Subject 1</option>
-                                        <option value="3">Subject 2</option>
-                                        <option value="4">Subject 3</option>
-                                    </select>
-                                </div>
+                    <div class="mt-6 flex">
+                        <div class="flex-1">
+                            <label for="tags" class="formLabel">Tags</label>
 
 
-                            </div>
-                            <div class="col-md-6 ">
 
-                                <div class="form-outline">
-                                    <label class="font-bold ">Select Category</label>
-                                    <select
-                                        class="border mt-2 w-full border-slate-300 py-2 px-3 shadow-sm  focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-                                        <option value="1" disabled>Choose option</option>
-                                        <option value="2">Subject 1</option>
-                                        <option value="3">Subject 2</option>
-                                        <option value="4">Subject 3</option>
-                                    </select>
-                                </div>
 
-                            </div>
                         </div>
+                    </div>
 
+                    <div class="flex mt-6 justify-between">
+                        <div class="flex-1">
+                            <label for="thumbnail" class="formLabel">Thumbnails</label>
+                            <input type="file" name="thumbnail[]" multiple id="thumbnail" class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
 
-                        <div class="row">
-                            <div class="col-12">
-
-                                <div class="form-outline">
-                                    <label class="font-bold ">Visibility</label>
-                                    <div class=" flex mt-3">
-                                        <div class="form-check form-check-inline">
-                                            <input
-                                                class="form-check-input form-check-input  rounded-full h-4 w-4 border border-gray-800 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                                                type="radio" name="test" id="flexRadioDefault10" value="option1">
-                                            <label class="form-check-label inline-block text-gray-800"
-                                                for="flexRadioDefault10">Public</label>
-                                        </div>
-                                        <div class="form-check form-check-inline ml-2">
-                                            <input
-                                                class="form-check-input  rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                                                type="radio" name="test" id="inlineRadio2" value="option2">
-                                            <label class="form-check-label inline-block text-gray-800"
-                                                for="inlineRadio20">Private</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="mt-4 pt-2">
-                            <input class="btn-shadow cursor-pointer" type="submit" value="Submit" />
-                        </div>
+                    <div class="upload_image_preview flex"></div>
 
-                        
-                    </form>
-                    {{-- form end --}}
-                </div>
+                    <div class="mt-6">
+                        <button type="submit" class="px-8 py-2 text-base uppercase bg-teal-600 hover:bg-emerald-700 text-white rounded-md transition-all">Create</button>
+                    </div>
+
+                </form>
             </div>
         </div>
+        <!-- End Recent Sales -->
     </div>
+    <!-- End General Report -->
+</div>
+@endsection
+
+@section('scripts')
+    <script>
+
+
+        $(function() {
+            // Multiple images preview in browser
+            var imagesPreview = function(input, placeToInsertImagePreview) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img class="m-5" style="width:150px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+
+            $('#thumbnail').on('change', function() {
+                imagesPreview(this, 'div.upload_image_preview');
+            });
+        });
+    </script>
 @endsection

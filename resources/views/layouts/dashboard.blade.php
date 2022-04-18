@@ -15,6 +15,7 @@
         }
 
     </style>
+    
 </head>
 
 <body class="bg-gray-100">
@@ -44,17 +45,9 @@
     {{-- ckeditor --}}
     <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
     <script src="{{ asset('admin/js/scripts.js') }}"></script>
+    @yield('scripts')
     <script>
         $(document).ready(function() {
-            // ClassicEditor
-            //     .create(document.querySelector('.ckEditor'))
-            //     .then(editor => {
-            //         console.log(editor);
-            //     })
-            //     .catch(error => {
-            //         console.log(error);
-            //     });
-
                 CKEDITOR.replace( 'ckEditor' );
         })
     </script>
