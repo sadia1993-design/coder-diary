@@ -31,6 +31,11 @@
                             <select name="category_id"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="category_id">
                                 <option value="none">Select Category</option>
 
+                                 @forelse ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                 @empty
+
+                                 @endforelse
                             </select>
 
 
