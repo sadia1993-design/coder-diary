@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Problem;
+use App\Models\Category;
+use App\Models\Tag;
+
 use App\Http\Requests\StoreProblemRequest;
 use App\Http\Requests\UpdateProblemRequest;
 
@@ -29,7 +32,11 @@ class ProblemController extends Controller
      */
     public function create()
     {
-       return view('admin.problem.create');
+       $categories = Category::orderBy('id', 'ASC')
+           ->get();
+       $tags = Tag::orderBy('id', 'ASC')
+           ->get();
+       return view('admin.problem.create', compact('categories', 'tags'));
     }
 
     /**
