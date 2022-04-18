@@ -23,8 +23,8 @@
 
                         @forelse ($problems as  $problem)
                             <tr>
-                                <td class="border border-l-0 border-b-0 px-4 py-2 text-center text-green-500"><i
-                                        class="fad fa-circle"></i></td>
+                                <td style="color: {{ ($problem->visibility == 'public') ? 'green' : 'red'  }}" class="border border-l-0 border-b-0 px-4 py-2 text-center "><i
+                                        class="fad fa-{{ ($problem->visibility == 'public') ? 'eye' : 'eye-slash'  }}"></i></td>
                                 <td class="border border-l-0 border-b-0 px-4 py-2"><a
                                         href="{{ route('problems.show', $problem) }}"
                                         class="hover:text-teal-600">{{ \Illuminate\Support\Str::limit($problem->title, 40, '...') }}</a>

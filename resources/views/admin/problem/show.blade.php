@@ -76,7 +76,7 @@
             <div class="card mt-6">
                 <!-- header -->
                 <div class="card-header flex justify-between items-center">
-                    <h1 class="h4">Problem Details </h1>
+                    <h2 class="text-xl font-bold">{{ $problem->title }} </h2>
                     <a href="{{ route('problems.index') }}" class="btn-shadow">Back</a>
                 </div>
                 <!-- end header -->
@@ -94,7 +94,7 @@
 
                             <div class="flex flex-col">
                                 <h1 class="font-semibold capitalize">Published On</h1>
-                                <p class="text-xs capitalize">{{ $problem->created_at->format('d M, Y') }}</p>
+                                <p class="text-xs capitalize">{{ $problem->created_at->format('d M Y') }}</p>
                             </div>
 
                         </div>
@@ -273,7 +273,7 @@
             });
 
 
-           
+
         });
     </script>
 @endsection
