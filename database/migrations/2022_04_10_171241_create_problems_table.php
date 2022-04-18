@@ -20,8 +20,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->enum('visibility' ,['public', 'private']);
 
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('restrict');
-            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

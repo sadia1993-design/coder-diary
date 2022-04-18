@@ -43,17 +43,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Category  $category
@@ -62,7 +51,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         return view('admin.category.edit')->with([
-            'category' => Category::find($id),
+            'category' => Category::find($category->id),
         ]);
     }
 
@@ -75,7 +64,11 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data= $request->validated();
+        $category->fill($data);
+        $category->save();
+
+        return redirect()->route('category.index')->with('info', 'Category Updated Successfully');
     }
 
     /**

@@ -13,8 +13,12 @@
             <div class="card">
 
                 <div class="card-body">
-                        <form action="" method="POST" >
+
+
+
+                        <form action="{{ route('category.update', $category->id) }}" method="POST" >
                             @csrf
+                            @method('put')
 
                             <div class="flex mt-6">
                                 <div class="flex-1 mr-4">
@@ -24,8 +28,7 @@
 
                                 <div class="flex-1 mr-4">
                                     <label for="slug" class="formLabel">Slug</label>
-                                    {{-- shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline --}}
-                                    <input type="text" readonly name="slug" class="border  focus:outline-none rounded w-full py-2 px-3" value="">
+                                    <input type="text" readonly name="slug" class="border  focus:outline-none rounded w-full py-2 px-3" value="{{ $category->slug }}">
                                 </div>
                             </div>
 

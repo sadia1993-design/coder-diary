@@ -15,6 +15,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        \DB::table('users')->truncate();
        User::create([
           'name' => 'Coder Dairy',
           'username' => 'coder',
@@ -23,5 +25,7 @@ class UserSeeder extends Seeder
           'email_verified_at' => now(),
           'image' => 'https://picsum.photos/300'
        ]);
+
+       \DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }
