@@ -28,7 +28,9 @@
                     <td class="border border-l-0 border-b-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>
                     <td class="border border-l-0 border-b-0 px-4 py-2"><a href="{{ route('problems.show', $problem) }}" class="hover:text-teal-600">{{ \Illuminate\Support\Str::limit($problem->title, 40, '...') }}</a></td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2"> {{ $problem->category->name }} </td>
-                    <td class="border bg-indigo-50 border-l-0 border-b-0 border-r-0 px-4 py-2">Laravel</td>
+                    <td  class="border border-l-0 border-b-0 border-r-0 px-4 py-2">
+                        <a class="border bg-green-300 rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 text-base" href="">Laravel</a>
+                    </td>
                     <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2 flex text-xs">
                         <a href=""  class="btn-bs-primary "><i class="fas fa-eye"></i></a>
                         <a href=""  class="btn-bs-success mx-2"><i class="fas fa-edit"></i></a>

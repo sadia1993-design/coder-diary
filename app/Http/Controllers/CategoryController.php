@@ -15,7 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('admin.category.index')->with([
+            'categories' => Category::with('problem')->orderBy('name', 'ASC')->paginate(5)
+        ]);
     }
 
     /**
@@ -25,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -58,7 +61,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit')->with([
+            'category' => Category::find($id),
+        ]);
     }
 
     /**
@@ -81,6 +86,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        try{
+            Category::destroy($category->id);
+        return redirect()->route('category.index')->with('warning', 'Category deleted successfully');
+        } catch(\Exception $e){
+            return $e;
+            return redirect()->route('category.index')->with('error', 'Category deleted failed');
+        }
     }
 }

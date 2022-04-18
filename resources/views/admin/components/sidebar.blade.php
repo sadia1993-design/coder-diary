@@ -71,7 +71,7 @@ class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 fl
     <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Settings</p>
 
     <!-- link -->
-    <a href="#"
+    <a href="{{ route('tags.index') }}"
         class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fas fa-tag text-xs mr-2"></i>
         Tags
@@ -79,8 +79,8 @@ class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 fl
     <!-- end link -->
 
     <!-- link -->
-    <a href="#"
-        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+    <a href="{{ route('category.index') }}"
+        class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500 {{ request()->routeIs('category.*') ? 'text-teal-600' : '' }}">
         <i class="fas fa-list-alt text-xs mr-2"></i>
          Category
     </a>

@@ -34,7 +34,7 @@ class Problem extends Model
     //category relationship
     public function category()
     {
-        return $this->belongsTo(category::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
 }
