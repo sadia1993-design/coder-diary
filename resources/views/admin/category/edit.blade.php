@@ -42,11 +42,13 @@
                                 <div class="flex-1 mr-4">
                                     <label for="name" class="formLabel">Name</label>
                                     <input type="text" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $category->name }}">
+                                    <small id="name" class="form-text text-muted">Numeric value not allowed</small>
+
                                 </div>
 
                                 <div class="flex-1 mr-4">
                                     <label for="slug" class="formLabel">Slug</label>
-                                    <input type="text" readonly name="slug" class="border  focus:outline-none rounded w-full py-2 px-3" value="{{ $category->slug }}">
+                                    <input type="text" readonly name="slug" class="border bg-gray-300 focus:outline-none rounded w-full py-2 px-3" value="{{ $category->slug }}">
                                 </div>
                             </div>
 

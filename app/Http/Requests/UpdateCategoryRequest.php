@@ -24,7 +24,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha',
+            'name' => 'required|regex:/^[a-zA-Z\s]+$/',
         ];
     }
 }
