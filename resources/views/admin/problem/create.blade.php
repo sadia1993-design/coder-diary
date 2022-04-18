@@ -93,7 +93,9 @@
     <script>
 
 
+
         $(function() {
+
             // Multiple images preview in browser
             var imagesPreview = function(input, placeToInsertImagePreview) {
                 if (input.files) {
@@ -111,6 +113,9 @@
             $('#thumbnail').on('change', function() {
                 imagesPreview(this, 'div.upload_image_preview');
             });
+
+
+            CKEDITOR.replace( 'ckEditor' );
         });
     </script>
 @endsection

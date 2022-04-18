@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -17,8 +17,9 @@ class CategoryController extends Controller
     {
 
         return view('admin.category.index')->with([
-            'categories' => Category::with('problem')->orderBy('name', 'ASC')->paginate(5)
+            'categories' => Category::with('problem')->orderBy('name', 'ASC')->paginate(5),
         ]);
+
     }
 
     /**
@@ -64,11 +65,16 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $data= $request->validated();
-        $category->fill($data);
-        $category->save();
+        $data = $request->validated();
+        try {
+            $category->fill($data);
+            $category->save();
+            return redirect()->route('category.index')->with('info', 'Category Updated Successfully');
 
-        return redirect()->route('category.index')->with('info', 'Category Updated Successfully');
+        } catch (\Exception$e) {
+            return $e;
+            return redirect()->route('category.index')->with('error', 'Category update failed');
+        }
     }
 
     /**
@@ -79,11 +85,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        try{
+        try {
             Category::destroy($category->id);
-        return redirect()->route('category.index')->with('warning', 'Category deleted successfully');
-        } catch(\Exception $e){
-            return $e;
+            return redirect()->route('category.index')->with('warning', 'Category deleted successfully');
+        } catch (\Exception$e) {
+            // return $e;
             return redirect()->route('category.index')->with('error', 'Category deleted failed');
         }
     }

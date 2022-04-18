@@ -52,12 +52,8 @@
     {{-- ckeditor --}}
     <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
     <script src="{{ asset('admin/js/scripts.js') }}"></script>
+
     @yield('scripts')
-    <script>
-        $(document).ready(function() {
-                CKEDITOR.replace( 'ckEditor' );
-        })
-    </script>
     <!-- end script -->
 
 </body>
