@@ -20,9 +20,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('problems_tags', function (Blueprint $table) {
-            $table->unsignedBigInteger('problem_id');
-            $table->unsignedBigInteger('tags_id');
+        Schema::create('problem_tag', function (Blueprint $table) {
+            $table->foreignId('problem_id')->constrained();
+            $table->foreignId('tags_id')->constrained();
         });
     }
 
