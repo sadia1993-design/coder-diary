@@ -22,6 +22,7 @@ class ProblemController extends Controller
         $problems = Problem::with('category')
              ->orderBy('id', 'desc')->take(10)
              ->paginate(7);
+        // $problems = Problem::join('category')->select('title','slug', 'name')->get();
         return view('admin.problem.index' , compact('problems'));
     }
 

@@ -32,9 +32,5 @@ class Category extends Model
     }
 
 
-    //problem relationship
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+    
 }
