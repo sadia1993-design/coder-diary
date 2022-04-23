@@ -23,8 +23,10 @@
 
                         @forelse ($problems as  $problem)
                             <tr>
-                                <td style="color: {{ ($problem->visibility == 'public') ? 'green' : 'red'  }}" class="border border-l-0 border-b-0 px-4 py-2 text-center "><i
-                                        class="fad fa-{{ ($problem->visibility == 'public') ? 'eye' : 'eye-slash'  }}"></i></td>
+                                <td style="color: {{ $problem->visibility == 'public' ? 'green' : 'red' }}"
+                                    class="border border-l-0 border-b-0 px-4 py-2 text-center "><i
+                                        class="fad fa-{{ $problem->visibility == 'public' ? 'eye' : 'eye-slash' }}"></i>
+                                </td>
                                 <td class="border border-l-0 border-b-0 px-4 py-2"><a
                                         href="{{ route('problems.show', $problem) }}"
                                         class="hover:text-teal-600">{{ \Illuminate\Support\Str::limit($problem->title, 40, '...') }}</a>
@@ -33,11 +35,14 @@
                                     {{ $problem->category->name }} </td>
                                 <td class="border border-l-0 border-b-0 border-r-0  px-4 py-2">
                                     <div class="tags grid grid-cols-2 gap-3">
-                                        <a style="color: #fff;" class="border btn-shadow  rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
+                                        <a style="color: #fff;"
+                                            class="border btn-shadow  rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
                                             href="">Laravel</a>
-                                        <a style="color: #fff" class="border btn-shadow rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
+                                        <a style="color: #fff"
+                                            class="border btn-shadow rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
                                             href="">Laravel</a>
-                                        <a style="color: #fff" class="border btn-shadow  rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
+                                        <a style="color: #fff"
+                                            class="border btn-shadow  rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
                                             href="">Laravel</a>
                                     </div>
                                 </td>
@@ -65,4 +70,45 @@
         </div>
 
     </div>
+@endsection
+
+
+@section('scripts')
+    <script>
+        @if (Session::has('message'))
+        toastr.options =
+        {
+        "closeButton" : true,
+        "progressBar" : true
+        }
+        toastr.success("{{ session('message') }}");
+    @endif
+
+    @if (Session::has('error'))
+        toastr.options =
+        {
+        "closeButton" : true,
+        "progressBar" : true
+        }
+        toastr.error("{{ session('error') }}");
+    @endif
+
+    @if (Session::has('info'))
+        toastr.options =
+        {
+        "closeButton" : true,
+        "progressBar" : true
+        }
+        toastr.info("{{ session('info') }}");
+    @endif
+
+    @if (Session::has('warning'))
+        toastr.options =
+        {
+        "closeButton" : true,
+        "progressBar" : true
+        }
+        toastr.warning("{{ session('warning') }}");
+    @endif
+    </script>
 @endsection

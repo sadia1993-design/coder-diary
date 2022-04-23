@@ -15,7 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::orderBy('id', 'desc')->paginate(13);
+        return view('admin.tag.index' ,compact('tags'));
     }
 
     /**
@@ -25,7 +26,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tag.create');
     }
 
     /**
@@ -36,19 +37,18 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        //
+        $request->validated();
+        try {
+            Tag::create($request->all());
+            return redirect()->route('tags.index')->with('info', 'Tags Added Successfully');
+
+        } catch (\Exception$e) {
+            return $e;
+            return redirect()->route('tags.index')->with('error', 'Tags add failed');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tag $tag)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -58,7 +58,9 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('admin.tag.edit')->with([
+            'tag' => Tag::find($tag->id),
+        ]);
     }
 
     /**
@@ -70,7 +72,16 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        //
+        $data = $request->validated();
+        try {
+            $tag->fill($data);
+            $tag->save();
+            return redirect()->route('tags.index')->with('info', 'Tags Updated Successfully');
+
+        } catch (\Exception$e) {
+            return $e;
+            return redirect()->route('tags.index')->with('error', 'Tags update failed');
+        }
     }
 
     /**
@@ -81,6 +92,12 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        try {
+            Tag::destroy($tag->id);
+            return redirect()->route('tags.index')->with('warning', 'Tag deleted successfully');
+        } catch (\Exception$e) {
+            // return $e;
+            return redirect()->route('tags.index')->with('error', 'Tag deleted failed');
+        }
     }
 }

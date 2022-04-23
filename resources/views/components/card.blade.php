@@ -1,3 +1,5 @@
+ @props(['number', 'title'])
+
  <!-- card -->
  <div class="report-card">
     <div class="card">
@@ -16,8 +18,8 @@
 
             <!-- bottom -->
             <div class="mt-8">
-                <h1 class="h5 num-4"></h1>
-                <p>items sales</p>
+                <h1>{{ $number }}</h1>
+                <p>{{ $title }}</p>
             </div>
             <!-- end bottom -->
 
