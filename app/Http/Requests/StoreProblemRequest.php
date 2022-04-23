@@ -13,7 +13,7 @@ class StoreProblemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class StoreProblemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+             'title' => 'bail|required',
+             'category' => 'bail|required',
+             'description' => 'required',
+             'tag' => 'required',
+             'thumbnail' => 'required',
         ];
     }
 }

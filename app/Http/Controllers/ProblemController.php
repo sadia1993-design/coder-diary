@@ -8,6 +8,7 @@ use App\Models\Tag;
 
 use App\Http\Requests\StoreProblemRequest;
 use App\Http\Requests\UpdateProblemRequest;
+use Illuminate\Http\Request;
 
 class ProblemController extends Controller
 {
@@ -48,7 +49,7 @@ class ProblemController extends Controller
      */
     public function store(StoreProblemRequest $request)
     {
-
+           $request->validated();
     }
 
     /**
