@@ -9,6 +9,8 @@ use App\Models\Tag;
 use App\Http\Requests\StoreProblemRequest;
 use App\Http\Requests\UpdateProblemRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class ProblemController extends Controller
 {
@@ -21,9 +23,10 @@ class ProblemController extends Controller
     public function index()
     {
         $problems = Problem::with('category')
-             ->orderBy('id', 'desc')->take(10)
-             ->paginate(7);
-        // $problems = Problem::join('category')->select('title','slug', 'name')->get();
+             ->orderBy('id', 'desc')
+             ->paginate(5);
+
+
         return view('admin.problem.index' , compact('problems'));
     }
 
@@ -50,6 +53,21 @@ class ProblemController extends Controller
     public function store(StoreProblemRequest $request)
     {
            $request->validated();
+           try{
+                Problem::create([
+                    'title' => $request->title,
+                    'slug'  => Str::slug($request->title),
+                    'description'  => $request->description,
+                    'visibility'  => $request->visibility,
+                    'user_id'  => \Auth::id(),
+                    'category_id'  => $request->category_id,
+                ]);
+
+                return redirect()->route('problems.index')->with('info', 'Problem Created Successfully');
+
+           }catch(\Exception $e){
+                return $e;
+           }
     }
 
     /**

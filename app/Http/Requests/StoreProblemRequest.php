@@ -23,12 +23,26 @@ class StoreProblemRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-             'title' => 'bail|required',
-             'category' => 'bail|required',
-             'description' => 'required',
-             'tag' => 'required',
+        return
+        [
+             'title' => 'required|string|max:255',
+             'category_id' => 'required|not_in:none',
              'thumbnail' => 'required',
         ];
+
+    }
+
+
+    public function messages()
+
+    {
+
+        return [
+
+            'category_id.required' => 'The Category field is required',
+            'category_id.not_in' => 'The Category field can\'t be empty',
+
+        ];
+
     }
 }

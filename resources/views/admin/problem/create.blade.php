@@ -19,7 +19,7 @@
                                 <label for="name" class="formLabel">Title</label>
                                 <input type="text" name="title"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="name" >
+                                    id="name" value="{{ old('title') ? old('title') : '' }}">
                                 @error('title')
                                    <div><span class="error">{{ $message }}</span></div>
                                 @enderror
@@ -34,15 +34,15 @@
                                 <select name="category_id"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="category_id">
-                                    <option value="none">Select Category</option>
+                                    <option value="" >Select Category</option>
 
                                     @forelse ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}"  {{ old('category_id') == $category->id  ?  'selected' : '' }} >{{ $category->name }}</option>
                                     @empty
                                     @endforelse
                                 </select>
 
-                                @error('category')
+                                @error('category_id')
                                    <div><span class="error">{{ $message }}</span></div>
                                 @enderror
                             </div>
@@ -66,12 +66,10 @@
                         <div class="flex mt-6 justify-between">
                             <div class="flex-1">
                                 <label for="description" class="formLabel">Description</label>
-                                <textarea name="ckEditor" class="ckEditor" id="description" rows="10"></textarea>
+                                <textarea name="description" class="ckEditor" id="description" rows="10"></textarea>
                             </div>
                         </div>
-                        @error('description')
-                            <div><span class="error">{{ $message }}</span></div>
-                        @enderror
+
 
 
 
@@ -80,27 +78,27 @@
                                 <label for="tags" class="formLabel ">Tags</label><br>
 
                                 @foreach ($tags as $tag)
-                                    <input type="checkbox" name="tag[]" id="{{ $tag->slug }}"
+                                    <input type="checkbox" class="tags" name="tag[]" data-id="{{ $tag->slug }}" id="{{ $tag->slug }}"
                                         value="{{ $tag->id }}">
                                     <label for="{{ $tag->slug }}" class="mr-2 cursor-pointer">{{ $tag->name }}</label>
                                 @endforeach
+
                             </div>
                         </div>
 
-                        @error('tag')
-                            <div><span class="error">{{ $message }}</span></div>
-                        @enderror
+
 
                         <div class="flex mt-6 justify-between">
                             <div class="flex-1">
                                 <label for="thumbnail" class="formLabel">Thumbnails</label>
                                 <input type="file" name="thumbnail[]" multiple id="thumbnail"
                                     class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
+
+                                    @error('thumbnail')
+                                      <div><span class="error">{{ $message }}</span></div>
+                                    @enderror
                             </div>
                         </div>
-                        @error('thumbnail')
-                            <div><span class="error">{{ $message }}</span></div>
-                        @enderror
 
                         <div class="upload_image_preview flex"></div>
 
@@ -144,7 +142,7 @@
 
 
             //ckeditor
-            CKEDITOR.replace('ckEditor');
+            CKEDITOR.replace('description');
 
 
             //
@@ -154,6 +152,11 @@
             $('#category_id').on('change', function(){
                 $(this).next().hide();
             })
+            $('#thumbnail').on('click', function(){
+                $(this).next().hide();
+            })
+
+
         });
     </script>
 @endsection
