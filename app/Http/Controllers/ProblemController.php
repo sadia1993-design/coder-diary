@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Problem;
-use App\Models\Category;
-use App\Models\Tag;
-
 use App\Http\Requests\StoreProblemRequest;
 use App\Http\Requests\UpdateProblemRequest;
+use App\Models\Category;
+use App\Models\Problem;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
 
 class ProblemController extends Controller
 {
@@ -23,11 +21,10 @@ class ProblemController extends Controller
     public function index()
     {
         $problems = Problem::with('category')
-             ->orderBy('id', 'desc')
-             ->paginate(5);
+            ->orderBy('id', 'desc')
+            ->paginate(5);
 
-
-        return view('admin.problem.index' , compact('problems'));
+        return view('admin.problem.index', compact('problems'));
     }
 
     /**
@@ -37,11 +34,11 @@ class ProblemController extends Controller
      */
     public function create()
     {
-       $categories = Category::orderBy('id', 'ASC')
-           ->get();
-       $tags = Tag::orderBy('id', 'ASC')
-           ->get();
-       return view('admin.problem.create', compact('categories', 'tags'));
+        $categories = Category::orderBy('id', 'ASC')
+            ->get();
+        $tags = Tag::orderBy('id', 'ASC')
+            ->get();
+        return view('admin.problem.create', compact('categories', 'tags'));
     }
 
     /**
@@ -52,22 +49,24 @@ class ProblemController extends Controller
      */
     public function store(StoreProblemRequest $request)
     {
-           $request->validated();
-           try{
-                Problem::create([
-                    'title' => $request->title,
-                    'slug'  => Str::slug($request->title),
-                    'description'  => $request->description,
-                    'visibility'  => $request->visibility,
-                    'user_id'  => \Auth::id(),
-                    'category_id'  => $request->category_id,
-                ]);
+        $request->validated();
+        try {
+            $problem = Problem::create([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'description' => $request->description,
+                'visibility' => $request->visibility,
+                'user_id' => \Auth::id(),
+                'category_id' => $request->category_id,
+            ]);
 
-                return redirect()->route('problems.index')->with('info', 'Problem Created Successfully');
+            $problem->tags()->attach($request->tags);
 
-           }catch(\Exception $e){
-                return $e;
-           }
+            return redirect()->route('problems.index')->with('info', 'Problem Created Successfully');
+
+        } catch (\Exception$e) {
+            return $e;
+        }
     }
 
     /**

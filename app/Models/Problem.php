@@ -37,4 +37,15 @@ class Problem extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    /**
+     *
+     * The tags that belong to the Problem
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'problem_tag', 'problem_id', 'tags_id');
+    }
+
 }

@@ -35,15 +35,15 @@
                                     {{ $problem->category->name }} </td>
                                 <td class="border border-l-0 border-b-0 border-r-0  px-4 py-2">
                                     <div class="tags grid grid-cols-2 gap-3">
-                                        <a style="color: #fff;"
-                                            class="border btn-shadow  rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
-                                            href="">Laravel</a>
-                                        <a style="color: #fff"
-                                            class="border btn-shadow rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
-                                            href="">Laravel</a>
-                                        <a style="color: #fff"
-                                            class="border btn-shadow  rounded-md border-l-0 border-b-0 border-r-0 px-4 py-2 "
-                                            href="">Laravel</a>
+
+                                        @foreach ($problem->tags as $tag)
+                                            <a style="color: #fff;"
+                                                class="bg-teal-600 text-white text-xs rounded-sm px-2 py-1  "
+                                                href="">{{ $tag->name }}
+                                            </a>
+                                        @endforeach
+
+
                                     </div>
                                 </td>
                                 <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2 flex text-xs">
@@ -76,39 +76,39 @@
 @section('scripts')
     <script>
         @if (Session::has('message'))
-        toastr.options =
-        {
-        "closeButton" : true,
-        "progressBar" : true
-        }
-        toastr.success("{{ session('message') }}");
-    @endif
+            toastr.options =
+            {
+            "closeButton" : true,
+            "progressBar" : true
+            }
+            toastr.success("{{ session('message') }}");
+        @endif
 
-    @if (Session::has('error'))
-        toastr.options =
-        {
-        "closeButton" : true,
-        "progressBar" : true
-        }
-        toastr.error("{{ session('error') }}");
-    @endif
+        @if (Session::has('error'))
+            toastr.options =
+            {
+            "closeButton" : true,
+            "progressBar" : true
+            }
+            toastr.error("{{ session('error') }}");
+        @endif
 
-    @if (Session::has('info'))
-        toastr.options =
-        {
-        "closeButton" : true,
-        "progressBar" : true
-        }
-        toastr.info("{{ session('info') }}");
-    @endif
+        @if (Session::has('info'))
+            toastr.options =
+            {
+            "closeButton" : true,
+            "progressBar" : true
+            }
+            toastr.info("{{ session('info') }}");
+        @endif
 
-    @if (Session::has('warning'))
-        toastr.options =
-        {
-        "closeButton" : true,
-        "progressBar" : true
-        }
-        toastr.warning("{{ session('warning') }}");
-    @endif
+        @if (Session::has('warning'))
+            toastr.options =
+            {
+            "closeButton" : true,
+            "progressBar" : true
+            }
+            toastr.warning("{{ session('warning') }}");
+        @endif
     </script>
 @endsection

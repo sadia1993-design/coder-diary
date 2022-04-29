@@ -21,7 +21,7 @@
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="name" value="{{ old('title') ? old('title') : '' }}">
                                 @error('title')
-                                   <div><span class="error">{{ $message }}</span></div>
+                                    <div><span class="error">{{ $message }}</span></div>
                                 @enderror
                             </div>
                         </div>
@@ -34,16 +34,18 @@
                                 <select name="category_id"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="category_id">
-                                    <option value="" >Select Category</option>
+                                    <option value="">Select Category</option>
 
                                     @forelse ($categories as $category)
-                                        <option value="{{ $category->id }}"  {{ old('category_id') == $category->id  ?  'selected' : '' }} >{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}"
+                                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}</option>
                                     @empty
                                     @endforelse
                                 </select>
 
                                 @error('category_id')
-                                   <div><span class="error">{{ $message }}</span></div>
+                                    <div><span class="error">{{ $message }}</span></div>
                                 @enderror
                             </div>
 
@@ -78,9 +80,11 @@
                                 <label for="tags" class="formLabel ">Tags</label><br>
 
                                 @foreach ($tags as $tag)
-                                    <input type="checkbox" class="tags" name="tag[]" data-id="{{ $tag->slug }}" id="{{ $tag->slug }}"
+                                    <input type="checkbox" class="tags" name="tags[]"
+                                        data-id="{{ $tag->slug }}" id="{{ $tag->slug }}"
                                         value="{{ $tag->id }}">
-                                    <label for="{{ $tag->slug }}" class="mr-2 cursor-pointer">{{ $tag->name }}</label>
+                                    <label for="{{ $tag->slug }}"
+                                        class="mr-2 cursor-pointer">{{ $tag->name }}</label>
                                 @endforeach
 
                             </div>
@@ -94,9 +98,9 @@
                                 <input type="file" name="thumbnail[]" multiple id="thumbnail"
                                     class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
 
-                                    @error('thumbnail')
-                                      <div><span class="error">{{ $message }}</span></div>
-                                    @enderror
+                                @error('thumbnail')
+                                    <div><span class="error">{{ $message }}</span></div>
+                                @enderror
                             </div>
                         </div>
 
@@ -146,13 +150,13 @@
 
 
             //
-            $('#name').on('keyup', function(){
+            $('#name').on('keyup', function() {
                 $(this).next().hide();
             })
-            $('#category_id').on('change', function(){
+            $('#category_id').on('change', function() {
                 $(this).next().hide();
             })
-            $('#thumbnail').on('click', function(){
+            $('#thumbnail').on('click', function() {
                 $(this).next().hide();
             })
 
