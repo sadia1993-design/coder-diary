@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProblemRequest;
 use App\Http\Requests\UpdateProblemRequest;
 use App\Models\Category;
+use App\Models\Media;
 use App\Models\Problem;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -34,9 +35,11 @@ class ProblemController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('id', 'ASC')
+        $categories = Category::where('user_id', auth()->user()->id)
+            ->orderBy('id', 'ASC')
             ->get();
-        $tags = Tag::orderBy('id', 'ASC')
+        $tags = Tag::where('user_id', auth()->user()->id)
+            ->orderBy('id', 'ASC')
             ->get();
         return view('admin.problem.create', compact('categories', 'tags'));
     }
@@ -61,6 +64,20 @@ class ProblemController extends Controller
             ]);
 
             $problem->tags()->attach($request->tags);
+
+            if (!empty($request->file('thumbnails'))) {
+                foreach ($request->thumbnails as $thumb) {
+                    $image = time() . '-' . $thumb->getClientOriginalName();
+                    // Storage::put('public/uploads', $image);
+                    $thumb->storeAs('public/uploads', $image);
+
+                    Media::create([
+                        'name' => $image,
+                        'user_id' => auth()->user()->id,
+                        'problem_id' => $problem->id,
+                    ]);
+                }
+            }
 
             return redirect()->route('problems.index')->with('info', 'Problem Created Successfully');
 

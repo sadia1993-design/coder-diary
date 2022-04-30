@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 255);
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('problem_id')->constrained()->nullable();
             $table->foreignId('solution_id')->constrained()->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

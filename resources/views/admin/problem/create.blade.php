@@ -77,7 +77,10 @@
 
                         <div class="mt-6 flex">
                             <div class="flex-1">
-                                <label for="tags" class="formLabel ">Tags</label><br>
+                                <label for="tags" class="formLabel ">Tags
+                                    <a href="#test-popup" class="open-popup-link text-teal-600 text-sm ml-5">Add New
+                                        Tag</a>
+                                </label><br>
 
                                 @foreach ($tags as $tag)
                                     <input type="checkbox" class="tags" name="tags[]"
@@ -95,7 +98,7 @@
                         <div class="flex mt-6 justify-between">
                             <div class="flex-1">
                                 <label for="thumbnail" class="formLabel">Thumbnails</label>
-                                <input type="file" name="thumbnail[]" multiple id="thumbnail"
+                                <input type="file" name="thumbnails[]" multiple id="thumbnail"
                                     class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
 
                                 @error('thumbnail')
@@ -119,6 +122,15 @@
         </div>
         <!-- End General Report -->
     </div>
+
+    <div id="test-popup" class="white-popup mfp-hide">
+        <h3>Add New Tag</h3>
+        <input type="text" name="new_tag" id="add_tag"
+            class="border my-2 border-teal-600 focus:outline-none focus:shadow-none px-2 py-1">
+        <button type="button"
+            class="border my-2 border-teal-600 bg-teal-600 text-white focus:outline-none focus:shadow-none px-2 py-1"
+            id="add_new_tag">Add</button>
+    </div>
 @endsection
 
 @section('scripts')
@@ -141,6 +153,7 @@
             };
 
             $('#thumbnail').on('change', function() {
+                $('.upload_image_preview').html('');
                 imagesPreview(this, 'div.upload_image_preview');
             });
 
@@ -161,6 +174,53 @@
             })
 
 
+            //popup
+            $('.open-popup-link').magnificPopup({
+                type: 'inline',
+                midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+                closeOnBgClick: false,
+                removalDelay: 300,
+                fisedContentPos: false,
+                fixedBgPos: true,
+                focus: "input[name='new_tag']",
+                closeBtnInside: true,
+                preloader: false,
+
+            });
+
+            //ajax
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content'),
+                }
+            })
+
+            //add tag via ajax
+
+            $('#add_new_tag').on('click', function(e) {
+                e.preventDefault();
+
+                let name = $('#add_tag').val();
+                let formData = {
+
+                }
+            })
+
         });
     </script>
+@endsection
+
+
+@section('style')
+    <style>
+        .white-popup {
+            position: relative;
+            background: #FFF;
+            padding: 20px;
+            width: auto;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+    </style>
 @endsection

@@ -20,7 +20,8 @@ class TagFactory extends Factory
         $name = $this->faker->words(2, true);
         return [
             'name' => $name,
-            'slug' => Str::slug($name, '-')
+            'slug' => Str::slug($name, '-'),
+            'user_id' => ' 1',
         ];
     }
 }

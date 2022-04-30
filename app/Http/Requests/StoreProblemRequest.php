@@ -24,17 +24,15 @@ class StoreProblemRequest extends FormRequest
     public function rules()
     {
         return
-        [
-             'title' => 'required|string|max:255',
-             'category_id' => 'required|not_in:none',
-             'thumbnail' => 'required',
+            [
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|not_in:none',
+            'thumbnails' => 'required',
         ];
 
     }
 
-
     public function messages()
-
     {
 
         return [

@@ -18,11 +18,12 @@ class CategoryFactory extends Factory
     public function definition()
     {
         $name = $this->faker->words(2, true);
-        $slug =  Str::slug($name, '-');
+        $slug = Str::slug($name, '-');
 
         return [
             'name' => $name,
             'slug' => $slug,
+            'user_id' => ' 1',
         ];
     }
 }
