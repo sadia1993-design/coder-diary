@@ -200,10 +200,29 @@
             $('#add_new_tag').on('click', function(e) {
                 e.preventDefault();
 
-                let name = $('#add_tag').val();
-                let formData = {
+                let name = $('#add_tag');
 
+                let formData = {
+                    name: $(name).val()
                 }
+                console.log(formData);
+                let url = '{{ route('ajax.tag.store') }}';
+
+                if ($(name).val() != '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: formData,
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+
+                    });
+                }
+
             })
 
         });
