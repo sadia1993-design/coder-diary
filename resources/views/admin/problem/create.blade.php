@@ -82,13 +82,15 @@
                                         Tag</a>
                                 </label><br>
 
-                                @foreach ($tags as $tag)
-                                    <input type="checkbox" class="tags" name="tags[]"
-                                        data-id="{{ $tag->slug }}" id="{{ $tag->slug }}"
-                                        value="{{ $tag->id }}">
-                                    <label for="{{ $tag->slug }}"
-                                        class="mr-2 cursor-pointer">{{ $tag->name }}</label>
-                                @endforeach
+                                <div class="tag_list">
+                                    @foreach ($tags as $tag)
+                                        <input type="checkbox" class="tags" name="tags[]"
+                                            data-id="{{ $tag->slug }}" id="{{ $tag->slug }}"
+                                            value="{{ $tag->id }}">
+                                        <label for="{{ $tag->slug }}"
+                                            class="mr-2 cursor-pointer">{{ $tag->name }}</label>
+                                    @endforeach
+                                </div>
 
                             </div>
                         </div>
@@ -125,6 +127,7 @@
 
     <div id="test-popup" class="white-popup mfp-hide">
         <h3>Add New Tag</h3>
+        <p class="text-red-500" id="msg"></p>
         <input type="text" name="new_tag" id="add_tag"
             class="border my-2 border-teal-600 focus:outline-none focus:shadow-none px-2 py-1">
         <button type="button"
@@ -199,13 +202,14 @@
 
             $('#add_new_tag').on('click', function(e) {
                 e.preventDefault();
+                $('#msg').text("");
 
                 let name = $('#add_tag');
 
                 let formData = {
                     name: $(name).val()
                 }
-                console.log(formData);
+
                 let url = '{{ route('ajax.tag.store') }}';
 
                 if ($(name).val() != '') {
@@ -214,7 +218,23 @@
                         url: url,
                         data: formData,
                         success: function(response) {
-                            console.log(response);
+                            if (response.error) {
+                                console.log("error");
+                                $(name).val('');
+                                $('#msg').text("Tag already exists");
+                            } else {
+                                var tag = response.tag;
+                                $(name).val('');
+                                $.magnificPopup.close();
+                                $('.tag_list').prepend(
+                                    '<input type="checkbox" checked class="tags" name="tags[]" data-id="' +
+                                    tag.slug + '" id="' + tag.slug + '" value="' + tag.id +
+                                    '"> <label for="' + tag.slug +
+                                    '" class="mr-2 cursor-pointer">' + tag.name + '</label>'
+                                );
+                                console.log(response);
+                            }
+
                         },
                         error: function(error) {
                             console.log(error);
