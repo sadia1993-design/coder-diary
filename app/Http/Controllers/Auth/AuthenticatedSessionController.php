@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Socialite;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -50,5 +52,38 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    //google login
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+            $existingUser = User::where('email', $user->email)->first();
+
+            if ($existingUser) {
+                Auth::login($existingUser);
+                return redirect('/dashboard');
+            } else {
+                $newUser = new User;
+                $newUser->name = $user->name;
+                $newUser->email = $user->email;
+                $newUser->provider_id = $user->id;
+                $newUser->save();
+
+                Auth::login($newUser);
+                return redirect('/dashboard');
+            }
+
+        } catch (\Exception$e) {
+            return $e;
+            return redirect('login');
+        }
+
     }
 }

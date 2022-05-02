@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('problem_id')->constrained()->nullable();
-            $table->foreignId('solution_id')->constrained()->nullable();
+            $table->foreignId('problem_id')->nullable()->constrained();
+            $table->foreignId('solution_id')->nullable()->constrained();
             $table->timestamps();
         });
 

@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProblemController;
 use App\Http\Controllers\SolutionController;
@@ -8,6 +7,9 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+//GOOGLE LOGIN
+Route::get('login/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('login/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
 Route::get('/', function () {
     return view('welcome');
 });
